@@ -1,3 +1,6 @@
+import re
+from typing import Callable
+
 def input_error(func):
     def inner(*args, **kwargs):
         try:
@@ -17,32 +20,20 @@ def parse_input(user_input):
 
 @input_error
 def add_contact(args, contacts):
-    if len(args) != 2:
-        raise ValueError
     name, phone = args
     contacts[name] = phone
     return "Contact added."
 
 @input_error
 def change_contact(args, contacts):
-    if len(args) != 2:
-        raise ValueError
     name, phone = args
-    if name in contacts:
-        contacts[name] = phone
-        return "Contact updated."
-    else:
-        raise KeyError
+    contacts[name] = phone
+    return "Contact updated."
 
 @input_error
 def show_phone(args, contacts):
-    if len(args) != 1:
-        raise ValueError
     name = args[0]
-    if name in contacts:
-        return contacts[name]
-    else:
-        raise KeyError
+    return contacts[name]
 
 @input_error
 def show_all(contacts):
